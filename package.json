@@ -1,0 +1,11 @@
+{
+  "name": "social-media-app2",
+  "version": "1.0.0",
+  "description": "Postaway application with REST API and database connections created through mongoose ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shinia Gupta",
+  "license": "ISC"
+}
