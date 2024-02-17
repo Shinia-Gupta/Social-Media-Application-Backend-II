@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 
 dotenv.config();
+let session;
 const url=process.env.DB_URL;
 const connectToMongodb=async ()=>{
     try {
@@ -9,6 +10,7 @@ const connectToMongodb=async ()=>{
             useNewUrlParser:true,
             useUnifiedTopology:true
         });
+        session=await mongoose.startSession();
         console.log('DB connected via mongoose');
     } catch (error) {
         console.log('Could not connect to the database');
@@ -16,4 +18,8 @@ const connectToMongodb=async ()=>{
     }
 }
 
+//not implemented anywhere yet...need a replica set?
+export const getSession=()=>{
+    return session;
+}
 export default connectToMongodb;
