@@ -62,6 +62,7 @@ export class CommentRepository {
         _id: new ObjectId(commentId),
         user: new ObjectId(userId),
       });
+      if(commentToFindPost){
       const postId = commentToFindPost.post;
 
       // console.log(commentId);
@@ -73,6 +74,11 @@ export class CommentRepository {
       if (commentDeleted.acknowledged) {
         return { success: true, res: commentDeleted };
       } else {
+        return {
+          success: false,
+          error: { statusCode: 404, message: "No such comment found!" },
+        };
+      }}else{
         return {
           success: false,
           error: { statusCode: 404, message: "No such comment found!" },

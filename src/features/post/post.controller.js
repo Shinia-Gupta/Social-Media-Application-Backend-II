@@ -127,6 +127,7 @@ async updatePost(req, res, next) {
             res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
         } 
     } catch (error) {
+        console.log(error);
         res.status(500).json({ success: false, message: error.message || "Internal Server Error" });
     }    
 }

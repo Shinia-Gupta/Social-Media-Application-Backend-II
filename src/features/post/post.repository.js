@@ -26,7 +26,8 @@ export class PostRepository {
 
   async getAllByUser(userId) {
     try {
-      const userPosts = await postModel.find({ userId });
+      const userPosts = await postModel.find({ user:new ObjectId(userId) });
+      console.log(userPosts);
       if (userPosts.length != 0) return { success: true, res: userPosts };
       else
         return {
