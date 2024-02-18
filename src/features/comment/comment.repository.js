@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 
 import { commentSchema } from "./comment.schema.js";
 import { postModel } from "../post/post.repository.js";
-import { ApplicationError } from "../../../error_handler/customErrorHandler.js";
+import { ApplicationError } from "../../error_handler/customErrorHandler.js";
 export const commentModel = mongoose.model("Comment", commentSchema);
 export class CommentRepository {
   async getAll(postId) {
@@ -64,12 +64,12 @@ export class CommentRepository {
       });
       const postId = commentToFindPost.post;
 
-      console.log(commentId);
+      // console.log(commentId);
       const delCom = await postModel.findByIdAndUpdate(
         { _id: postId },
         { $pull: { comments: commentId } }
       );
-      console.log(delCom);
+      // console.log(delCom);
       if (commentDeleted.acknowledged) {
         return { success: true, res: commentDeleted };
       } else {

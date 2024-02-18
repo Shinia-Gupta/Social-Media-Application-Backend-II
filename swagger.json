@@ -1,0 +1,310 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "API for Postaway Application",
+        "title": "Postaway API"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "JWT": {
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "paths": {
+        "/api/users/signup": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Register a new user",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/signin": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "User login",
+                "description": "User Login to get the token",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["email", "password"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Incorrect Credentials"
+                    }
+                }
+            }
+        },
+        "/api/users/logout": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "User logout",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/updatePassword/generateOtp": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Generate OTP for password reset",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/updatePassword/verifyOtp": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Verify OTP for password reset",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/updatePassword": {
+            "put": {
+                "tags": ["Users"],
+                "summary": "Reset user password",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/get-details/{userId}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get user details",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/get-all-details": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get details of all users",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/users/update-details/{userId}": {
+            "put": {
+                "tags": ["Users"],
+                "summary": "Update user details",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": ["Posts"],
+                "summary": "Get all posts",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Posts"],
+                "summary": "Create a new post",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/posts/all": {
+            "get": {
+                "tags": ["Posts"],
+                "summary": "Get all posts",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/posts/{postId}": {
+            "get": {
+                "tags": ["Posts"],
+                "summary": "Get post by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Posts"],
+                "summary": "Update post by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Posts"],
+                "summary": "Delete post by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/comments/{postId}": {
+            "get": {
+                "tags": ["Comments"],
+                "summary": "Get comments for a post",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Comments"],
+                "summary": "Add comment to a post",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/comments/{commentId}": {
+            "delete": {
+                "tags": ["Comments"],
+                "summary": "Delete comment by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Comments"],
+                "summary": "Update comment by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/likes/{id}": {
+            "get": {
+                "tags": ["Likes"],
+                "summary": "Get likes by ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }},
+            "/api/likes/toggle/{id}": {
+            "post": {
+                "tags": ["Likes"],
+                "summary": "Toggle like",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/friends/get-friends/{userId}": {
+            "get": {
+                "tags": ["Friends"],
+                "summary": "Get friends by user ID",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/friends/get-pending-requests": {
+            "get": {
+                "tags": ["Friends"],
+                "summary": "Get pending friend requests",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/friends/toggle-friendship/{friendId}": {
+            "post": {
+                "tags": ["Friends"],
+                "summary": "Toggle friendship",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/friends/response-to-request/{friendId}": {
+            "post": {
+                "tags": ["Friends"],
+                "summary": "Respond to friend request",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}

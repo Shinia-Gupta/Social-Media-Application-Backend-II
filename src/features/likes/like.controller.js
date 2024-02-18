@@ -12,7 +12,7 @@ export class LikeController{
             const resp = await this.likeRepo.getAll(req.params.id,req.query.model);
     
             if (resp.success) {
-                res.status(200).json({ success: true, posts: resp.res });
+                res.status(200).json({ success: true, likes: resp.res });
             } else {
                 // If the repository function returned an error, handle it here
                 res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
@@ -27,7 +27,7 @@ export class LikeController{
         // console.log(req.params.id,req.user._id,req.query.model);
         const resp=await this.likeRepo.toggleLikes(req.params.id,req.user._id,req.query.model)
         if (resp.success) {
-            res.status(200).json({ success: true, posts: resp.res });
+            res.status(200).json({ success: true, like_action: resp.res });
         } else {
             // If the repository function returned an error, handle it here
             res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });

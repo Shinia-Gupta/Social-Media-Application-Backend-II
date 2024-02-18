@@ -3,24 +3,27 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import swagger from 'swagger-ui-express';
-import { jwtAuth } from './middlewares/jwtAuth.middleware.js';
-import { ApplicationError } from './error_handler/customErrorHandler.js';
+import {jwtAuth} from './src/middlewares/jwtAuth.middleware.js'
+import { ApplicationError } from './src/error_handler/customErrorHandler.js';
 import userRouter from './src/features/user/user.routes.js';
 import postRouter from './src/features/post/post.routes.js';
-import commentRouter from './src/features/comment/comment.router.js';
+import commentRouter from './src/features/comment/comment.routes.js';
 import likeRouter from './src/features/likes/like.routes.js';
-
+import loggerMiddleware from './src/middlewares/logger.middleware.js';
+import friendRouter from './src/features/frienships/friend.routes.js';
+import apiDocs from './swagger.json' assert {type:'json'};
 const app=express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use('/api-docs',swagger.serve,swagger.setup(apiDocs));  //create and import it then remove this comment
-
+app.use('/api-docs',swagger.serve,swagger.setup(apiDocs));  //create and import it then remove this comment
+app.use(loggerMiddleware);
 app.use('/api/users',userRouter);
 
 app.use('/api/posts',jwtAuth,postRouter);
 app.use('/api/comments',jwtAuth,commentRouter);
 app.use('/api/likes',jwtAuth,likeRouter);
+app.use('/api/friends',jwtAuth,friendRouter);
 
 app.use((err,req,res,next)=>
 {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { likeSchema } from "./like.schema.js";
-import { ApplicationError } from "../../../error_handler/customErrorHandler.js";
+import { ApplicationError } from "../../error_handler/customErrorHandler.js";
 import { ObjectId } from "mongodb";
 import { commentModel } from "../comment/comment.repository.js";
 import { postModel } from "../post/post.repository.js";
@@ -52,7 +52,7 @@ const postToDeleteLike=await postModel.findByIdAndUpdate(
     { _id: postId },
     { $pull: { likes: likeExisting._id } }
   );
-  console.log('post to delete like-',postToDeleteLike);
+  // console.log('post to delete like-',postToDeleteLike);
 
       }else{
    
@@ -62,7 +62,7 @@ const commentToDeleteLike=await commentModel.findByIdAndUpdate(
     { _id: commentId },
     { $pull: { likes: likeExisting._id } }
   );
-  console.log(commentToDeleteLike);
+  // console.log(commentToDeleteLike);
       }
         const likeToDelete = await likeModel.deleteOne({
           _id: likeExisting._id,
@@ -85,7 +85,7 @@ const commentToDeleteLike=await commentModel.findByIdAndUpdate(
     postToAddLike.likes.push( newLike._id)
         await postToAddLike.save();
     
-      console.log(postToAddLike);
+      // console.log(postToAddLike);
     
           }else{
        

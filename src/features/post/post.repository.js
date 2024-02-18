@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { postSchema } from "./post.schema.js";
-import { ApplicationError } from "../../../error_handler/customErrorHandler.js";
+import { ApplicationError } from "../../error_handler/customErrorHandler.js";
 import { ObjectId } from "mongodb";
 import { userModel } from "../user/user.repository.js";
 
@@ -97,9 +97,9 @@ const user=await userModel.findById(data.userId);
         user: new ObjectId(userId),
       });
       // const user=await userModel.findById(data.userId);
-console.log('user id-',userId);
-console.log('data-',postToDelete);
-console.log('post id-',postToDelete._id);
+// console.log('user id-',userId);
+// console.log('data-',postToDelete);
+// console.log('post id-',postToDelete._id);
       if (postToDelete.length != 0) {
         const delUserPost=await userModel.findByIdAndUpdate({_id:userId},{$pull:{posts:postToDelete._id}})
         // console.log(delUserPost);
@@ -129,7 +129,7 @@ console.log('post id-',postToDelete._id);
         if (postToUpdate!==undefined) {
         const updatedPost=  await postModel.updateOne({ _id: new ObjectId(postId) }, {$set:{caption:postData.caption,imageUrl:postData.imageUrl}});
       //    const savedPost= await updatedPost.save();
-      console.log(updatedPost);
+      // console.log(updatedPost);
           return { success: true, res: updatedPost };
         } else
           return {

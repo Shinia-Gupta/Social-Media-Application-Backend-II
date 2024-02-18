@@ -1,6 +1,6 @@
 import express from 'express';
 import { PostController } from './post.controller.js';
-import { upload } from '../../../middlewares/fileupload.middleware.js';
+import { upload } from '../../middlewares/fileupload.middleware.js';
 const postRouter=express.Router();
 const postController=new PostController();
 

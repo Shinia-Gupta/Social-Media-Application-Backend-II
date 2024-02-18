@@ -1,17 +1,18 @@
-import { CommentRepository } from "./comment.repository.js";
+import { FriendRepository } from "./friend.repository.js";
 
 
-export class CommentController {
-    constructor() {
-this.commentRepo=new CommentRepository();
+export class FriendController{
+    constructor(){
+        this.friendRepo=new FriendRepository();
     }
 
-    async getAllComments(req, res, next) {
+
+    async getFriends(req,res,next){
         try {
-            const resp = await this.commentRepo.getAll(req.params.postId);
+            const resp = await this.friendRepo.getAll(req.params.userId);
     
             if (resp.success) {
-                res.status(200).json({ success: true, comments: resp.res });
+                res.status(200).json({ success: true, friends: resp.res });
             } else {
                 // If the repository function returned an error, handle it here
                 res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
@@ -22,47 +23,51 @@ this.commentRepo=new CommentRepository();
         }
     }
 
-    async createComment(req, res, next) {
-        
+    async getPendingRequests(req,res,next){
         try {
-            const resp=await this.commentRepo.addComment(req.body.content,req.params.postId,req.user._id);
+            const resp = await this.friendRepo.getPendingRequests(req.user._id);
+    
             if (resp.success) {
-                res.status(201).json({ success: true, comment_added: resp.res });
+                res.status(200).json({ success: true, pending_requests: resp.res });
             } else {
+                // If the repository function returned an error, handle it here
                 res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
             }
         } catch (error) {
+            // If an unexpected error occurred, handle it here
             res.status(500).json({ success: false, message: error.message || "Internal Server Error" });
-            
         }
     }
 
-    async deleteComment(req, res, next) {
-          
+    async toggleFriendship(req,res,next){
         try {
-            const resp=await this.commentRepo.deleteComment(req.params.commentId,req.user._id);
+            const resp = await this.friendRepo.toggleFriendship(req.user._id,req.params.friendId);
+    
             if (resp.success) {
-                res.status(201).json({ success: true, comment_deleted: resp.res });
+                res.status(200).json({ success: true, posts: resp.res });
             } else {
+                // If the repository function returned an error, handle it here
                 res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
             }
         } catch (error) {
+            // If an unexpected error occurred, handle it here
             res.status(500).json({ success: false, message: error.message || "Internal Server Error" });
-            
         }
     }
 
-    async updateComment(req, res, next) {
+    async respondRequest(req,res,next){
         try {
-            const resp=await this.commentRepo.updateComment(req.params.commentId,req.user._id,req.body.content);
+            const resp = await this.friendRepo.respondRequest(req.user._id,req.query.responded,req.params.friendId);
+    console.log(resp);
             if (resp.success) {
-                res.status(201).json({ success: true, comment_updated: resp.res });
+                res.status(200).json({ success: true, responded: resp.res });
             } else {
+                // If the repository function returned an error, handle it here
                 res.status(resp.error.statusCode || 500).json({ success: false, message: resp.error.message || "Internal Server Error" });
             }
         } catch (error) {
+            // If an unexpected error occurred, handle it here
             res.status(500).json({ success: false, message: error.message || "Internal Server Error" });
-            
         }
     }
 }

@@ -22,5 +22,7 @@ export const userSchema = new mongoose.Schema({
     required: [true, "Gender is required"],
   },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  pending_requests:[{ type: mongoose.Schema.Types.ObjectId, ref: "Friend" }],
+  friends:[{ type: mongoose.Schema.Types.ObjectId, ref: "Friend" }]
   // tokens: [{ type: String }]
 });
