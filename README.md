@@ -1,6 +1,6 @@
 ### Postaway API
 
-This repository contains the backend API for the Postaway application, which is a social media platform for sharing posts, comments, and likes, as well as managing user friendships.
+This repository hosts the backend RESTful API for the Postaway application, serving as the foundation of a comprehensive social media platform. The API facilitates seamless sharing of posts, comments, and likes among users, while also providing functionality for managing user friendships.
 
 ### Features
 
